@@ -20,10 +20,12 @@
       </p>
 
       <h3 class="middle-grid">Live examples</h3>
+      <h4 class="middle-grid">Hello world</h4>
       <div class="hello-example example middle-grid"></div>
       <pre class="middle-grid example-code"><code class="language-js">import { renderson } from 'renderson';
 document.body.appendChild(renderson({ hello: "world" }));</code></pre>
 
+      <h4 class="middle-grid">Hardcoded value</h4>
       <div class="longer-example example middle-grid"></div>
       <pre class="middle-grid example-code"><code class="language-js">import { renderson } from 'renderson';
 document.body.appendChild(renderson({
@@ -49,6 +51,7 @@ document.body.appendChild(renderson({
   "food": false
 }));</code></pre>
 
+      <h4 class="middle-grid">Dynamic object</h4>
       <div class="random-data-api-example example middle-grid"></div>
       <pre class="middle-grid example-code"><code class="language-js">const randomDataApi = 'https://random-data-api.com/api/v2/addresses';
 const addressesRequest = await fetch(randomDataApi);
@@ -56,6 +59,7 @@ const addresses = await addressesRequest.json();
 const randomDataApiExample = document.querySelector('.random-data-api-example');
 randomDataApiExample.appendChild(renderson(addresses));</code></pre>
 
+      <h4 class="middle-grid">Dynamic array</h4>
       <div class="random-data-api-array-example example middle-grid"></div>
       <pre class="middle-grid example-code"><code class="language-js">const randomDataApi = 'https://random-data-api.com/api/v2/addresses?size=10';
 const addressesRequest = await fetch(randomDataApi);

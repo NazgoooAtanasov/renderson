@@ -1,4 +1,4 @@
-import { renderson } from '/js/renderson.js';
+import { renderson } from '/renderson/js/renderson.js';
 
 const helloExample = document.querySelector('.hello-example');
 helloExample.appendChild(renderson({
