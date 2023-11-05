@@ -39,6 +39,16 @@ header {
   grid-template-columns: repeat(4, 1fr);
 }
 
+.left-grid {
+  grid-column: 2/3;
+}
+
+.right-grid {
+  grid-column: 3/4;
+  justify-self: end;
+  align-self: center;
+}
+
 .middle-grid {
   grid-column: 2/4;
 }
