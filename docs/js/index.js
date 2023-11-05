@@ -1,5 +1,21 @@
 import { renderson } from '/renderson/js/renderson.js';
 
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  document.documentElement.classList.add('dark');
+} else {
+  document.documentElement.classList.add('light');
+}
+
+document.querySelector('.theme-changer').addEventListener('click', () => {
+  if (document.documentElement.classList.contains('dark')) {
+    document.documentElement.classList.remove('dark');
+    document.documentElement.classList.add('light');
+  } else {
+    document.documentElement.classList.remove('light');
+    document.documentElement.classList.add('dark');
+  }
+});
+
 const helloExample = document.querySelector('.hello-example');
 helloExample.appendChild(renderson({
   hello: "world"

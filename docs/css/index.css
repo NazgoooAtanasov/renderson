@@ -3,6 +3,30 @@
   --color-silver: #f5f2f0;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text: #ffffff;
+    --color-bg: #000000;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-text: #000000;
+    --color-bg: #ffffff;
+  }
+}
+
+:root.light {
+  --color-text: #000000;
+  --color-bg: #ffffff;
+}
+
+:root.dark {
+  --color-text: #ffffff;
+  --color-bg: #000000;
+}
+
 @font-face {
   font-family: Ubuntu;
   src: url(/renderson/fonts/Ubuntu-Regular.ttf);
@@ -10,6 +34,11 @@
 
 * {
   font-family: 'Ubuntu';
+}
+
+html {
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
 
 html, body {
@@ -32,6 +61,8 @@ h3 {
 header {
   border-bottom: 1px solid var(--color-silver);
   padding: var(--spacing-small) 0;
+
+  max-height: 50px;
 }
 
 .grid {
@@ -49,6 +80,16 @@ header {
   align-self: center;
 }
 
+.corner-grid {
+  grid-column: 4/4;
+  justify-self: end;
+  align-self: center;
+}
+.corner-grid img {
+  height: auto;
+  width: 30px;
+}
+
 .middle-grid {
   grid-column: 2/4;
 }
@@ -62,6 +103,7 @@ main {
   padding: var(--spacing-small);
   border-radius: 10px;
   background-color: var(--color-silver);
+  color: #000000;
 }
 
 .example-code {
