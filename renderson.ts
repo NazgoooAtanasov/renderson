@@ -144,7 +144,7 @@ export function renderson(json: RSJSON): HTMLElement {
     border: none;
     background-color: transparent;
     cursor: pointer;
-    font-size: 10px;
+    font-size: inherit;
     padding: 0 5px;
   }
 </style>

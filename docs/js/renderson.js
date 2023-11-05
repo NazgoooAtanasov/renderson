@@ -118,7 +118,7 @@ export function renderson(json) {
     border: none;
     background-color: transparent;
     cursor: pointer;
-    font-size: 10px;
+    font-size: inherit;
     padding: 0 5px;
   }
 </style>
