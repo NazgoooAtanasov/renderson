@@ -142,8 +142,10 @@ export function renderson(json: RSJSON): HTMLElement {
   .hide { display: none; }
   button {
     border: none;
-    background-color: white;
+    background-color: transparent;
     cursor: pointer;
+    font-size: 10px;
+    padding: 0 5px;
   }
 </style>
 `)

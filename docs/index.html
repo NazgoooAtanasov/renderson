@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>renderson</title>
+    <link rel="stylesheet" href="/renderson/css/index.css" />
+    <link rel="stylesheet" href="/renderson/vendor/prism.css" />
+  </head>
+  <body>
+    <header class="grid">
+      <h1 class="middle-grid">Renderson</h1>
+    </header>
+    <main class="grid">
+      <p class="middle-grid">
+        Renderson is a Javascipt library created for the single purpose of rendering JSON like objects into the DOM in a collapsible tree structure.
+      </p>
+      <p class="middle-grid">
+        Created with the thought of ease of use and extensibility.
+      </p>
+
+      <h3 class="middle-grid">Live examples</h3>
+      <div class="hello-example example middle-grid"></div>
+      <pre class="middle-grid example-code"><code class="language-js">import { renderson } from 'renderson';
+document.body.appendChild(renderson({ hello: "world" }));</code></pre>
+
+      <div class="longer-example example middle-grid"></div>
+      <pre class="middle-grid example-code"><code class="language-js">import { renderson } from 'renderson';
+document.body.appendChild(renderson({
+  "save": false,
+  "situation": [
+    true,
+    "time",
+    {
+      "cheese": false,
+      "breathe": "club",
+      "door": -549143479.2958512,
+      "outside": -18219074,
+      "beat": true,
+      "seen": false
+    },
+    2093428657.2301016,
+    -1418328946.6731272,
+    true
+  ],
+  "printed": true,
+  "evening": true,
+  "loose": 1169290172.4492664,
+  "food": false
+}));</code></pre>
+
+      <div class="random-data-api-example example middle-grid"></div>
+      <pre class="middle-grid example-code"><code class="language-js">const randomDataApi = 'https://random-data-api.com/api/v2/addresses';
+const addressesRequest = await fetch(randomDataApi);
+const addresses = await addressesRequest.json();
+const randomDataApiExample = document.querySelector('.random-data-api-example');
+randomDataApiExample.appendChild(renderson(addresses));</code></pre>
+
+      <div class="random-data-api-array-example example middle-grid"></div>
+      <pre class="middle-grid example-code"><code class="language-js">const randomDataApi = 'https://random-data-api.com/api/v2/addresses?size=10';
+const addressesRequest = await fetch(randomDataApi);
+const addresses = await addressesRequest.json();
+const randomDataApiExample = document.querySelector('.random-data-api-example');
+randomDataApiExample.appendChild(renderson(addresses));</code></pre>
+
+    </main>
+    <footer></footer>
+    <script src="/renderson/vendor/prism.js" type="module"></script>
+    <script src="/renderson/js/index.js" type="module"></script>
+  </body>
+</html>
