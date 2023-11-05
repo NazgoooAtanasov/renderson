@@ -1,0 +1,69 @@
+:root {
+  --spacing-small: 10px;
+  --color-silver: #f5f2f0;
+}
+
+@font-face {
+  font-family: Ubuntu;
+  src: url(/renderson/fonts/Ubuntu-Regular.ttf);
+}
+
+* {
+  font-family: 'Ubuntu';
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+h1 {
+  font-size: 36px;
+  margin: 0;
+}
+
+h3 {
+  font-size: 24px;
+  margin: 0;
+}
+
+header {
+  border-bottom: 1px solid var(--color-silver);
+  padding: var(--spacing-small) 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.left-grid {
+  grid-column: 2/3;
+}
+
+.right-grid {
+  grid-column: 3/4;
+  justify-self: end;
+  align-self: center;
+}
+
+.middle-grid {
+  grid-column: 2/4;
+}
+
+main {
+  font-size: 16px;
+}
+
+.example {
+  margin-top: calc(var(--spacing-small) / 2);
+  padding: var(--spacing-small);
+  border-radius: 10px;
+  background-color: var(--color-silver);
+}
+
+.example-code {
+  border-radius: 10px;
+}
