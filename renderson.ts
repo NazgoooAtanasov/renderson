@@ -2,16 +2,20 @@ type BasicJSON = string | number | boolean | undefined | null;
 type RenderableJSON  = { [key: string]: BasicJSON | RenderableJSON | RenderableJSONArray };
 type RenderableJSONArray = (BasicJSON | RenderableJSON | RenderableJSONArray)[];
 type RSJSON = RenderableJSON | RenderableJSONArray;
+type RSJSONOptions = {
+  leftPixelOffset: number | undefined
+};
 
 function jsonbody(): [HTMLElement, HTMLElement] {
   const body = document.createElement('div');
-  body.classList.add('hide');
+  body.classList.add('renderson-hide');
 
   const trigger = document.createElement('button');
   trigger.textContent = '+';
+  trigger.classList.add('renderson-body-trigger');
   trigger.addEventListener('click', () => {
-    const show = !body.classList.contains('hide');
-    body.classList.toggle('hide', show);
+    const show = !body.classList.contains('renderson-hide');
+    body.classList.toggle('renderson-hide', show);
     trigger.textContent = show ? '+' : '-';
   });
 
@@ -133,29 +137,62 @@ function _renderson(json: RSJSON, body: HTMLElement) {
   }
 }
 
-export function renderson(json: RSJSON): HTMLElement {
-  const [_, body] = jsonbody();
-  body.classList.remove('hide');
-  body.insertAdjacentHTML('beforeend', `
-<style> 
-  .parent div { margin-left: 30px; }
-  .hide { display: none; }
-  button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    font-size: inherit;
-    padding: 0 5px;
+function rendersonStyles(strings: TemplateStringsArray, ...rest: string[]): HTMLStyleElement {
+  const styleElement = document.createElement('style');
+
+  let accumulator = '';
+  for (let i = 0; i < strings.length; ++i) {
+    accumulator += strings[i];
+    if (rest[i]) {
+      accumulator += rest[i];
+    }
   }
-</style>
-`)
+
+  styleElement.textContent = accumulator;
+  return styleElement;
+}
+
+const renderOptions: RSJSONOptions = {
+  leftPixelOffset: 30
+};
+
+function mergeRenderOptions(baseRenderOptions: RSJSONOptions, customRenderOptions: RSJSONOptions): RSJSONOptions {
+  return {
+    ...baseRenderOptions,
+    ...customRenderOptions
+  };
+};
+
+export function renderson(json: RSJSON, customRenderOptions?: RSJSONOptions): HTMLElement {
+  const [_, body] = jsonbody();
+  body.classList.remove('renderson-hide');
+
+  const mergedRenderOptions = mergeRenderOptions(renderOptions, customRenderOptions || {} as RSJSONOptions);
+
+  body.appendChild(rendersonStyles`
+    .renderson-hide {
+      display: none; 
+    }
+
+    .renderson-root div {
+      margin-left: ${mergedRenderOptions.leftPixelOffset!.toString()}px; 
+    }
+
+    .renderson-body-trigger {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      font-size: inherit;
+      padding: 0 5px;
+    }`
+  );
 
   const [trigger, nextBody] = jsonbody();
   const opening = !Array.isArray(json) ? openingCurly() : openingSquare();
   opening.appendChild(trigger);
   body.appendChild(opening);
 
-  nextBody.classList.add('parent');
+  nextBody.classList.add('renderson-root');
   _renderson(json, nextBody);
   body.appendChild(nextBody);
   body.appendChild(!Array.isArray(json) ? closingCurly() : closingSquare());
