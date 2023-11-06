@@ -1,11 +1,12 @@
 function jsonbody() {
     const body = document.createElement('div');
-    body.classList.add('hide');
+    body.classList.add('renderson-hide');
     const trigger = document.createElement('button');
     trigger.textContent = '+';
+    trigger.classList.add('renderson-body-trigger');
     trigger.addEventListener('click', () => {
-        const show = !body.classList.contains('hide');
-        body.classList.toggle('hide', show);
+        const show = !body.classList.contains('renderson-hide');
+        body.classList.toggle('renderson-hide', show);
         trigger.textContent = show ? '+' : '-';
     });
     return [trigger, body];
@@ -107,27 +108,50 @@ function _renderson(json, body) {
         }
     }
 }
-export function renderson(json) {
+function rendersonStyles(strings, ...rest) {
+    const styleElement = document.createElement('style');
+    let accumulator = '';
+    for (let i = 0; i < strings.length; ++i) {
+        accumulator += strings[i];
+        if (rest[i]) {
+            accumulator += rest[i];
+        }
+    }
+    styleElement.textContent = accumulator;
+    return styleElement;
+}
+const renderOptions = {
+    leftPixelOffset: 30
+};
+function mergeRenderOptions(baseRenderOptions, customRenderOptions) {
+    return Object.assign(Object.assign({}, baseRenderOptions), customRenderOptions);
+}
+;
+export function renderson(json, customRenderOptions) {
     const [_, body] = jsonbody();
-    body.classList.remove('hide');
-    body.insertAdjacentHTML('beforeend', `
-<style> 
-  .parent div { margin-left: 30px; }
-  .hide { display: none; }
-  button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    font-size: inherit;
-    padding: 0 5px;
-  }
-</style>
-`);
+    body.classList.remove('renderson-hide');
+    const mergedRenderOptions = mergeRenderOptions(renderOptions, customRenderOptions || {});
+    body.appendChild(rendersonStyles `
+    .renderson-hide {
+      display: none; 
+    }
+
+    .renderson-root div {
+      margin-left: ${mergedRenderOptions.leftPixelOffset.toString()}px; 
+    }
+
+    .renderson-body-trigger {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      font-size: inherit;
+      padding: 0 5px;
+    }`);
     const [trigger, nextBody] = jsonbody();
     const opening = !Array.isArray(json) ? openingCurly() : openingSquare();
     opening.appendChild(trigger);
     body.appendChild(opening);
-    nextBody.classList.add('parent');
+    nextBody.classList.add('renderson-root');
     _renderson(json, nextBody);
     body.appendChild(nextBody);
     body.appendChild(!Array.isArray(json) ? closingCurly() : closingSquare());
